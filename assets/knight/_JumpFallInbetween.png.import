@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yvqvkwv48bhg"
-path="res://.godot/imported/_Roll.png-3e49aeb709955a40873536e3778a55ba.ctex"
+uid="uid://xddx26jv4atu"
+path="res://.godot/imported/_JumpFallInbetween.png-1373e8044586c3f9770af9bc2e1c4538.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/knight/_Roll.png"
-dest_files=["res://.godot/imported/_Roll.png-3e49aeb709955a40873536e3778a55ba.ctex"]
+source_file="res://assets/knight/_JumpFallInbetween.png"
+dest_files=["res://.godot/imported/_JumpFallInbetween.png-1373e8044586c3f9770af9bc2e1c4538.ctex"]
 
 [params]
 

@@ -4,10 +4,9 @@ extends CharacterBody2D
 @export var speed: float = 300.0
 @export var jump_velocity = -200.0
 @export var double_jump_velocity = -150.0
-@onready var anim = %knight
-@onready var animated_sprite = anim.get_node('AnimatedSprite2D')
-var direction = 0
+@onready var anim = %AnimatedSprite2D
 
+var direction = 0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var has_double_jumped: bool = false
 
@@ -29,10 +28,10 @@ func _physics_process(delta):
 	direction = Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = direction * speed
-		anim.play_run_animation()
+		%AnimatedSprite2D.play("run")
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
-		anim.play_idle_animation()
+		%AnimatedSprite2D.play("idle")
 	
 	
 	move_and_slide()
@@ -40,6 +39,6 @@ func _physics_process(delta):
 	
 func update_facing_direction():
 	if direction > 0:
-		animated_sprite.flip_h = false
+		anim.flip_h = false
 	elif direction < 0:
-		animated_sprite.flip_h = true
+		anim.flip_h = true
