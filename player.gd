@@ -13,25 +13,28 @@ var animation_locked: bool = false
 var was_in_air: bool = false
 var ground_point = 0
 
+func _enter_tree():
+	set_multiplayer_authority(name.to_int())
 
 func _physics_process(delta):
-	if not is_on_floor():
-		velocity.y += gravity * delta
-	else:
-		has_double_jumped = false
+	if is_multiplayer_authority():
+		if not is_on_floor():
+			velocity.y += gravity * delta
+		else:
+			has_double_jumped = false
+			
+		if Input.is_action_just_pressed("jump"):
+			if is_on_floor():
+				jump()
+			elif not has_double_jumped:
+				velocity.y = double_jump_velocity
+				has_double_jumped = true
 		
-	if Input.is_action_just_pressed("jump"):
-		if is_on_floor():
-			jump()
-		elif not has_double_jumped:
-			velocity.y = double_jump_velocity
-			has_double_jumped = true
-	
-	direction = Input.get_vector("move_left", "move_right", "ui_up", "ui_down")
-	if direction:
-		velocity.x = direction.x * speed
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
+		direction = Input.get_vector("move_left", "move_right", "ui_up", "ui_down")
+		if direction:
+			velocity.x = direction.x * speed
+		else:
+			velocity.x = move_toward(velocity.x, 0, speed)
 	
 	move_and_slide()
 	update_facing_direction()
