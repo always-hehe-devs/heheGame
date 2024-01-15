@@ -30,6 +30,9 @@ func _physics_process(delta):
 				velocity.y = double_jump_velocity
 				has_double_jumped = true
 		
+		if Input.is_action_just_pressed("roll"):
+			roll()
+		
 		direction = Input.get_vector("move_left", "move_right", "ui_up", "ui_down")
 		if direction:
 			velocity.x = direction.x * speed
@@ -62,3 +65,6 @@ func jump():
 	anim.play("jump_start")
 	animation_locked = true
 	
+func roll():
+	anim.play("roll")
+	animation_locked = true

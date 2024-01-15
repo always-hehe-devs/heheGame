@@ -1,9 +1,10 @@
-[gd_scene load_steps=35 format=3 uid="uid://by7c8eay4jhkd"]
+[gd_scene load_steps=48 format=3 uid="uid://by7c8eay4jhkd"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_f7bbb"]
 [ext_resource type="Texture2D" uid="uid://bhkwh1veohslq" path="res://assets/knight/_Idle.png" id="2_73tnp"]
 [ext_resource type="Texture2D" uid="uid://6om2hsjnwr7" path="res://assets/knight/_Fall.png" id="4_erm62"]
 [ext_resource type="Texture2D" uid="uid://byg001t1bqdvg" path="res://assets/knight/_Jump.png" id="5_hpp2f"]
+[ext_resource type="Texture2D" uid="uid://hw35ib70q0pl" path="res://assets/knight/_Roll.png" id="5_u6ate"]
 [ext_resource type="Texture2D" uid="uid://bx1sa1yachixf" path="res://assets/knight/_Run.png" id="6_iijx3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5qvyk"]
@@ -72,6 +73,54 @@ region = Rect2(120, 41, 120, 39)
 [sub_resource type="AtlasTexture" id="AtlasTexture_32y73"]
 atlas = ExtResource("5_hpp2f")
 region = Rect2(240, 41, 120, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewcws"]
+atlas = ExtResource("5_u6ate")
+region = Rect2(0, 41, 120, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aw2x2"]
+atlas = ExtResource("5_u6ate")
+region = Rect2(120, 41, 120, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cl6s0"]
+atlas = ExtResource("5_u6ate")
+region = Rect2(240, 41, 120, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrp7k"]
+atlas = ExtResource("5_u6ate")
+region = Rect2(360, 41, 120, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwo4y"]
+atlas = ExtResource("5_u6ate")
+region = Rect2(480, 41, 120, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hk8st"]
+atlas = ExtResource("5_u6ate")
+region = Rect2(600, 41, 120, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_folhl"]
+atlas = ExtResource("5_u6ate")
+region = Rect2(720, 41, 120, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_thbtc"]
+atlas = ExtResource("5_u6ate")
+region = Rect2(840, 41, 120, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76st2"]
+atlas = ExtResource("5_u6ate")
+region = Rect2(960, 41, 120, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfx2i"]
+atlas = ExtResource("5_u6ate")
+region = Rect2(1080, 41, 120, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ymqp"]
+atlas = ExtResource("5_u6ate")
+region = Rect2(1200, 41, 120, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crgo4"]
+atlas = ExtResource("5_u6ate")
+region = Rect2(1320, 41, 120, 39)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2f531"]
 atlas = ExtResource("6_iijx3")
@@ -180,6 +229,47 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ewcws")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aw2x2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cl6s0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrp7k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwo4y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hk8st")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_folhl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thbtc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76st2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfx2i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ymqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crgo4")
+}],
+"loop": true,
+"name": &"roll",
+"speed": 18.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_2f531")
 }, {
 "duration": 1.0,
@@ -242,9 +332,20 @@ unique_name_in_owner = true
 position = Vector2(-59, -20)
 scale = Vector2(0.994134, 1)
 sprite_frames = SubResource("SpriteFrames_ddvgb")
-animation = &"fall"
+animation = &"roll"
 autoplay = "idle"
+frame_progress = 0.553356
 centered = false
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_y7u42")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(66.0001, -42)
+scale = Vector2(2.02932, 1.59625)
+process_callback = 0
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_horizontal_offset = -0.09
+drag_vertical_offset = 0.53
