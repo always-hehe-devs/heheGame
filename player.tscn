@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://by7c8eay4jhkd"]
+[gd_scene load_steps=49 format=3 uid="uid://by7c8eay4jhkd"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_f7bbb"]
 [ext_resource type="Texture2D" uid="uid://bhkwh1veohslq" path="res://assets/knight/_Idle.png" id="2_73tnp"]
@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bx1sa1yachixf" path="res://assets/knight/_Run.png" id="6_iijx3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5qvyk"]
-size = Vector2(16.3427, 27.2112)
+size = Vector2(17.2234, 27.2112)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2jgbw"]
 atlas = ExtResource("4_erm62")
@@ -264,7 +264,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_crgo4")
 }],
-"loop": true,
+"loop": false,
 "name": &"roll",
 "speed": 18.0
 }, {
@@ -318,12 +318,15 @@ properties/3/path = NodePath("AnimatedSprite2D:frame")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nbb57"]
+size = Vector2(36.6445, 36.6083)
+
 [node name="player" type="CharacterBody2D"]
-position = Vector2(524, 329)
+position = Vector2(525, 327)
 script = ExtResource("1_f7bbb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3, 5.32293)
+position = Vector2(-3.75, 5)
 scale = Vector2(1.07412, 1.05272)
 shape = SubResource("RectangleShape2D_5qvyk")
 
@@ -334,18 +337,35 @@ scale = Vector2(0.994134, 1)
 sprite_frames = SubResource("SpriteFrames_ddvgb")
 animation = &"roll"
 autoplay = "idle"
-frame_progress = 0.553356
+frame = 11
+frame_progress = 1.0
 centered = false
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_y7u42")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(66.0001, -42)
-scale = Vector2(2.02932, 1.59625)
+position = Vector2(-2, 2)
+zoom = Vector2(2, 2)
 process_callback = 0
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
-drag_horizontal_offset = -0.09
-drag_vertical_offset = 0.53
+drag_horizontal_offset = 0.1
+drag_vertical_offset = -0.2
+drag_left_margin = 0.1
+
+[node name="PlayerBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-2, 7)
+scale = Vector2(0.927833, 1.24021)
+collision_layer = 8
+collision_mask = 8
+priority = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBox"]
+position = Vector2(0, -4.03156)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_nbb57")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

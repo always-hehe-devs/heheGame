@@ -30,15 +30,20 @@ func _physics_process(delta):
 				velocity.y = double_jump_velocity
 				has_double_jumped = true
 		
-		if Input.is_action_just_pressed("roll"):
-			roll()
 		
 		direction = Input.get_vector("move_left", "move_right", "ui_up", "ui_down")
 		if direction:
 			velocity.x = direction.x * speed
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
+			
+		if Input.is_action_just_pressed("roll"):
+			roll()
+		
+		if Input.is_action_just_pressed("grab"):
+			grab_character()
 	
+
 	move_and_slide()
 	update_facing_direction()
 	update_animation()
@@ -68,3 +73,12 @@ func jump():
 func roll():
 	anim.play("roll")
 	animation_locked = true
+	
+func _on_animated_sprite_2d_animation_finished():
+	animation_locked = false
+	
+func grab_character():
+	var overlaping_players = %PlayerBox.get_overlapping_areas()
+	if overlaping_players.size() > 0:
+		print("Can grab")
+	
