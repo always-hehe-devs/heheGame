@@ -319,7 +319,7 @@ properties/3/spawn = true
 properties/3/replication_mode = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nbb57"]
-size = Vector2(36.6445, 36.6083)
+size = Vector2(29.1001, 36.284)
 
 [node name="player" type="CharacterBody2D"]
 position = Vector2(525, 327)
@@ -335,10 +335,8 @@ unique_name_in_owner = true
 position = Vector2(-59, -20)
 scale = Vector2(0.994134, 1)
 sprite_frames = SubResource("SpriteFrames_ddvgb")
-animation = &"roll"
+animation = &"run"
 autoplay = "idle"
-frame = 11
-frame_progress = 1.0
 centered = false
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
@@ -364,8 +362,7 @@ collision_mask = 8
 priority = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBox"]
-position = Vector2(0, -4.03156)
-scale = Vector2(1, 1)
+position = Vector2(-2.69446, -5.24106)
 shape = SubResource("RectangleShape2D_nbb57")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
