@@ -9,6 +9,7 @@ func _on_host_pressed():
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(_add_player)
 	_add_player()
+	add_child(player_scene.instantiate())
 	$CanvasLayer.hide()
 
 func _on_join_pressed():
