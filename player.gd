@@ -16,7 +16,8 @@ var ground_point = 0
 var is_grabbed = false
 var another_player = null
 var overlapping_players = []
-var lock_pos = false
+
+var rolling = false
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
@@ -43,7 +44,8 @@ func _physics_process(delta):
 			velocity.x = move_toward(velocity.x, 0, speed)
 			
 		if Input.is_action_just_pressed("roll"):
-			roll()
+			if not rolling:
+				rolling = true
 		
 		overlapping_players = %PlayerBox.get_overlapping_areas()
 		for player_area in overlapping_players:
@@ -52,15 +54,13 @@ func _physics_process(delta):
 		
 		if Input.is_action_just_pressed("grab"):
 			if overlapping_players.size() > 0 and another_player:
-				is_grabbed = true
+				grab_character(delta)
 		if Input.is_action_just_released("grab"):
 			if is_grabbed:
 				is_grabbed = false
-				lock_pos = false
 				print("Released")
 	
-	
-	grab_character(delta)
+	roll(delta)
 	move_and_slide()
 	update_facing_direction()
 	update_animation()
@@ -87,16 +87,19 @@ func jump():
 	anim.play("jump_start")
 	animation_locked = true
 	
-func roll():
-	anim.play("roll")
-	animation_locked = true
+func roll(delta):
+	if rolling:
+		velocity.x = 1 * speed * 2
+		anim.play("roll")
+		animation_locked = true
+		rolling = false
 	
 func _on_animated_sprite_2d_animation_finished():
 	animation_locked = false
 	
 func grab_character(delta):
-	if is_grabbed and another_player and not lock_pos:
-		another_player.global_position = self.global_position
-		lock_pos = true
+	if not is_grabbed and another_player:
+		another_player.global_position[0] += 20
+		is_grabbed = true
 		print(another_player.global_position)
 	

@@ -335,7 +335,7 @@ unique_name_in_owner = true
 position = Vector2(-59, -20)
 scale = Vector2(0.994134, 1)
 sprite_frames = SubResource("SpriteFrames_ddvgb")
-animation = &"run"
+animation = &"roll"
 autoplay = "idle"
 centered = false
 
