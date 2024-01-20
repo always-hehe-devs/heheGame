@@ -29,8 +29,10 @@ func _physics_process(delta):
 			velocity.y += gravity * delta
 		else:
 			has_double_jumped = false
-			
+		
+		
 		if Input.is_action_just_pressed("jump"):
+			rolling = false
 			if is_on_floor():
 				jump()
 			elif not has_double_jumped:
@@ -44,7 +46,7 @@ func _physics_process(delta):
 			velocity.x = move_toward(velocity.x, 0, speed)
 			
 		if Input.is_action_just_pressed("roll"):
-			if not rolling:
+			if not rolling and is_on_floor():
 				rolling = true
 		
 		overlapping_players = %PlayerBox.get_overlapping_areas()
