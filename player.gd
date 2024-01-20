@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-@export var speed: float = 300.0
+@export var speed: float = 200.0
 @export var jump_velocity = -200.0
 @export var double_jump_velocity = -150.0
 @onready var anim = %AnimatedSprite2D
@@ -18,6 +18,7 @@ var another_player = null
 var overlapping_players = []
 
 var rolling = false
+var facing = 1
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
@@ -36,9 +37,8 @@ func _physics_process(delta):
 				velocity.y = double_jump_velocity
 				has_double_jumped = true
 		
-		
 		direction = Input.get_vector("move_left", "move_right", "ui_up", "ui_down")
-		if direction:
+		if direction and not rolling:
 			velocity.x = direction.x * speed
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
@@ -68,8 +68,10 @@ func _physics_process(delta):
 func update_facing_direction():
 	if direction.x > 0:
 		anim.flip_h = false
+		facing = 1
 	elif direction.x < 0:
 		anim.flip_h = true
+		facing = -1
 
 func update_animation():
 	if ground_point < velocity.y:
@@ -89,13 +91,13 @@ func jump():
 	
 func roll(delta):
 	if rolling:
-		velocity.x = 1 * speed * 2
+		position[0] += facing * delta * 200
 		anim.play("roll")
 		animation_locked = true
-		rolling = false
 	
 func _on_animated_sprite_2d_animation_finished():
 	animation_locked = false
+	rolling = false
 	
 func grab_character(delta):
 	if not is_grabbed and another_player:
