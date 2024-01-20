@@ -325,6 +325,19 @@ size = Vector2(29.1001, 36.284)
 position = Vector2(525, 327)
 script = ExtResource("1_f7bbb")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 1)
+scale = Vector2(2, 2)
+zoom = Vector2(1.4, 1.4)
+process_callback = 0
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_vertical_offset = -0.98
+drag_right_margin = 0.1
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3.75, 5)
 scale = Vector2(1.07412, 1.05272)
@@ -335,23 +348,12 @@ unique_name_in_owner = true
 position = Vector2(-59, -20)
 scale = Vector2(0.994134, 1)
 sprite_frames = SubResource("SpriteFrames_ddvgb")
-animation = &"roll"
+animation = &"idle"
 autoplay = "idle"
 centered = false
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_y7u42")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-2, 2)
-zoom = Vector2(2, 2)
-process_callback = 0
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_horizontal_offset = 0.1
-drag_vertical_offset = -0.2
-drag_left_margin = 0.1
 
 [node name="PlayerBox" type="Area2D" parent="."]
 unique_name_in_owner = true

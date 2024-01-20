@@ -20,8 +20,10 @@ var overlapping_players = []
 var rolling = false
 var facing = 1
 
+
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
+	%Camera2D.enabled = is_multiplayer_authority()
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
@@ -56,7 +58,7 @@ func _physics_process(delta):
 		
 		if Input.is_action_just_pressed("grab"):
 			if overlapping_players.size() > 0 and another_player:
-				grab_character(delta)
+				grab_character()
 		if Input.is_action_just_released("grab"):
 			if is_grabbed:
 				is_grabbed = false
@@ -101,7 +103,7 @@ func _on_animated_sprite_2d_animation_finished():
 	animation_locked = false
 	rolling = false
 	
-func grab_character(delta):
+func grab_character():
 	if not is_grabbed and another_player:
 		another_player.global_position[0] += 20
 		is_grabbed = true

@@ -2,6 +2,7 @@ extends Node2D
 
 var peer = ENetMultiplayerPeer.new()
 @export var player_scene : PackedScene
+@onready var camera = $Camera2D
 
 
 func _on_host_pressed():
@@ -9,11 +10,13 @@ func _on_host_pressed():
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(_add_player)
 	_add_player()
+	camera.enabled = false
 	$CanvasLayer.hide()
 
 func _on_join_pressed():
 	peer.create_client("localhost", 1027)
 	multiplayer.multiplayer_peer = peer
+	camera.enabled = false
 	$CanvasLayer.hide()
 
 
