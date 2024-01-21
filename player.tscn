@@ -1,6 +1,7 @@
-[gd_scene load_steps=49 format=3 uid="uid://by7c8eay4jhkd"]
+[gd_scene load_steps=53 format=3 uid="uid://by7c8eay4jhkd"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_f7bbb"]
+[ext_resource type="Texture2D" uid="uid://c54x1dya5m57y" path="res://assets/knight/_Attack.png" id="2_3wmrc"]
 [ext_resource type="Texture2D" uid="uid://bhkwh1veohslq" path="res://assets/knight/_Idle.png" id="2_73tnp"]
 [ext_resource type="Texture2D" uid="uid://6om2hsjnwr7" path="res://assets/knight/_Fall.png" id="4_erm62"]
 [ext_resource type="Texture2D" uid="uid://byg001t1bqdvg" path="res://assets/knight/_Jump.png" id="5_hpp2f"]
@@ -9,6 +10,22 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5qvyk"]
 size = Vector2(17.2234, 27.2112)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qy6hp"]
+atlas = ExtResource("2_3wmrc")
+region = Rect2(0, 37, 120, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6vto"]
+atlas = ExtResource("2_3wmrc")
+region = Rect2(120, 37, 120, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrkpt"]
+atlas = ExtResource("2_3wmrc")
+region = Rect2(240, 37, 120, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bivgb"]
+atlas = ExtResource("2_3wmrc")
+region = Rect2(360, 37, 120, 43)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2jgbw"]
 atlas = ExtResource("4_erm62")
@@ -166,6 +183,23 @@ region = Rect2(1080, 41, 120, 39)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_qy6hp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6vto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrkpt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bivgb")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_2jgbw")
 }, {
 "duration": 1.0,
@@ -304,25 +338,11 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_y7u42"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("AnimatedSprite2D:animation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("AnimatedSprite2D:flip_h")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("AnimatedSprite2D:frame")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nbb57"]
 size = Vector2(29.1001, 36.284)
 
 [node name="player" type="CharacterBody2D"]
-position = Vector2(525, 327)
+collision_layer = 2
 script = ExtResource("1_f7bbb")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -345,15 +365,13 @@ shape = SubResource("RectangleShape2D_5qvyk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(-59, -20)
-scale = Vector2(0.994134, 1)
+position = Vector2(-58, -21)
 sprite_frames = SubResource("SpriteFrames_ddvgb")
-animation = &"idle"
+animation = &"attack"
 autoplay = "idle"
+frame = 3
+frame_progress = 1.0
 centered = false
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_y7u42")
 
 [node name="PlayerBox" type="Area2D" parent="."]
 unique_name_in_owner = true
