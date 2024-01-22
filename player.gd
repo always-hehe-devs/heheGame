@@ -24,6 +24,7 @@ var facing = 1
 func _physics_process(delta):
 	
 	if not is_on_floor():
+		attacking = false
 		velocity.y += gravity * delta
 	else:
 		has_double_jumped = false
