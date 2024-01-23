@@ -20,6 +20,7 @@ var overlapping_players = []
 var attacking = false
 var rolling = false
 var facing = 1
+var turning = false
 
 func _physics_process(delta):
 	
@@ -70,10 +71,10 @@ func _physics_process(delta):
 	
 func update_facing_direction():
 	if direction.x > 0:
-		anim.flip_h = false
+		turn_around()
 		facing = 1
 	elif direction.x < 0:
-		anim.flip_h = true
+		turn_around()
 		facing = -1
 
 func update_animation():
@@ -86,6 +87,25 @@ func update_animation():
 				anim.play("run")
 			else:
 				anim.play("idle")
+				
+func turn_around():
+	if facing == 1 and direction.x < 0:
+		anim.play("turn")
+		anim.flip_h = false
+		animation_locked = true
+		if not animation_locked:
+			anim.flip_h = true
+	elif facing == 1 and direction.x > 0:
+		anim.flip_h = false
+	
+	if facing == -1 and direction.x > 0:
+		anim.play("turn")
+		animation_locked = true
+		anim.flip_h = true
+		if not animation_locked:
+			anim.flip_h = true
+	elif facing == -1 and direction.x < 0:
+		anim.flip_h = true
 			
 func jump():
 	velocity.y = jump_velocity
@@ -107,7 +127,7 @@ func _on_animated_sprite_2d_animation_finished():
 	animation_locked = false
 	attacking = false
 	rolling = false
-	
+
 func update_grab():
 	if another_player and is_grabbed:
 		another_player.global_position = global_position

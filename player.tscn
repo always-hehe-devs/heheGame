@@ -1,12 +1,14 @@
-[gd_scene load_steps=53 format=3 uid="uid://by7c8eay4jhkd"]
+[gd_scene load_steps=60 format=3 uid="uid://by7c8eay4jhkd"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_f7bbb"]
 [ext_resource type="Texture2D" uid="uid://c54x1dya5m57y" path="res://assets/knight/_Attack.png" id="2_3wmrc"]
 [ext_resource type="Texture2D" uid="uid://bhkwh1veohslq" path="res://assets/knight/_Idle.png" id="2_73tnp"]
+[ext_resource type="Texture2D" uid="uid://cagbh8u5werub" path="res://assets/knight/_Dash.png" id="3_b61al"]
 [ext_resource type="Texture2D" uid="uid://6om2hsjnwr7" path="res://assets/knight/_Fall.png" id="4_erm62"]
 [ext_resource type="Texture2D" uid="uid://byg001t1bqdvg" path="res://assets/knight/_Jump.png" id="5_hpp2f"]
 [ext_resource type="Texture2D" uid="uid://hw35ib70q0pl" path="res://assets/knight/_Roll.png" id="5_u6ate"]
 [ext_resource type="Texture2D" uid="uid://bx1sa1yachixf" path="res://assets/knight/_Run.png" id="6_iijx3"]
+[ext_resource type="Texture2D" uid="uid://detb2or2nxdfw" path="res://assets/knight/_TurnAround.png" id="9_3xl56"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5qvyk"]
 size = Vector2(17.2234, 27.2112)
@@ -26,6 +28,14 @@ region = Rect2(240, 37, 120, 43)
 [sub_resource type="AtlasTexture" id="AtlasTexture_bivgb"]
 atlas = ExtResource("2_3wmrc")
 region = Rect2(360, 37, 120, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cuxne"]
+atlas = ExtResource("3_b61al")
+region = Rect2(0, 45, 120, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45pwq"]
+atlas = ExtResource("3_b61al")
+region = Rect2(120, 45, 120, 35)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2jgbw"]
 atlas = ExtResource("4_erm62")
@@ -179,6 +189,18 @@ region = Rect2(960, 41, 120, 39)
 atlas = ExtResource("6_iijx3")
 region = Rect2(1080, 41, 120, 39)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrqki"]
+atlas = ExtResource("9_3xl56")
+region = Rect2(0, 41, 120, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_doocv"]
+atlas = ExtResource("9_3xl56")
+region = Rect2(120, 41, 120, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvc6h"]
+atlas = ExtResource("9_3xl56")
+region = Rect2(240, 41, 120, 39)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_ddvgb"]
 animations = [{
 "frames": [{
@@ -197,6 +219,17 @@ animations = [{
 "loop": false,
 "name": &"attack",
 "speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cuxne")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_45pwq")
+}],
+"loop": true,
+"name": &"dash",
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -336,6 +369,20 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xrqki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_doocv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yvc6h")
+}],
+"loop": false,
+"name": &"turn",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nbb57"]
@@ -367,11 +414,12 @@ shape = SubResource("RectangleShape2D_5qvyk")
 unique_name_in_owner = true
 position = Vector2(-58, -21)
 sprite_frames = SubResource("SpriteFrames_ddvgb")
-animation = &"attack"
+animation = &"turn"
 autoplay = "idle"
-frame = 3
+frame = 2
 frame_progress = 1.0
 centered = false
+flip_h = true
 
 [node name="PlayerBox" type="Area2D" parent="."]
 unique_name_in_owner = true
