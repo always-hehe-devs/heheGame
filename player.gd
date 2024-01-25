@@ -81,31 +81,22 @@ func update_animation():
 	if ground_point < velocity.y:
 		animation_locked = false
 		anim.play("fall")
-	else:
-		if not animation_locked:
-			if direction.x != 0:
-				anim.play("run")
-			else:
-				anim.play("idle")
+	elif not animation_locked:
+		if direction.x != 0:
+			anim.play("run")
+		else:
+			anim.play("idle")
 				
 func turn_around():
 	if facing == 1 and direction.x < 0:
+		turning = true
 		anim.play("turn")
-		anim.flip_h = false
 		animation_locked = true
-		if not animation_locked:
-			anim.flip_h = true
-	elif facing == 1 and direction.x > 0:
-		anim.flip_h = false
 	
 	if facing == -1 and direction.x > 0:
+		turning = true
 		anim.play("turn")
 		animation_locked = true
-		anim.flip_h = true
-		if not animation_locked:
-			anim.flip_h = true
-	elif facing == -1 and direction.x < 0:
-		anim.flip_h = true
 			
 func jump():
 	velocity.y = jump_velocity
@@ -125,6 +116,7 @@ func update_roll(delta):
 	
 func _on_animated_sprite_2d_animation_finished():
 	animation_locked = false
+	turning = false
 	attacking = false
 	rolling = false
 

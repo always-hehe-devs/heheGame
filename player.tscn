@@ -419,7 +419,6 @@ autoplay = "idle"
 frame = 2
 frame_progress = 1.0
 centered = false
-flip_h = true
 
 [node name="PlayerBox" type="Area2D" parent="."]
 unique_name_in_owner = true
