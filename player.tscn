@@ -382,7 +382,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"turn",
-"speed": 8.0
+"speed": 6.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nbb57"]
@@ -433,5 +433,4 @@ priority = 1
 position = Vector2(-2.69446, -5.24106)
 shape = SubResource("RectangleShape2D_nbb57")
 
-[connection signal="end_turning" from="." to="." method="_on_end_turning"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
