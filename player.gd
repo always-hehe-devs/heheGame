@@ -52,6 +52,9 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("attack"):
 		attack()
+		
+	if Input.is_action_just_pressed("attack_second"):
+		attack_secondary()
 	
 	overlapping_players = %PlayerBox.get_overlapping_areas()
 	for player_area in overlapping_players:
@@ -97,6 +100,11 @@ func jump():
 	
 func attack():
 	anim.play("attack")
+	attacking = true
+	animation_locked = true
+
+func attack_secondary():
+	anim.play("attack_second")
 	attacking = true
 	animation_locked = true
 	
