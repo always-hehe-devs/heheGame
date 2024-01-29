@@ -14,8 +14,8 @@ var was_in_air: bool = false
 var ground_point = 0
 
 var is_grabbed = false
-var another_player = null
-var overlapping_players = []
+var throwable_object = null
+var overlapping_objects = []
 
 var attacking = false
 var rolling = false
@@ -56,13 +56,13 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("attack_second"):
 		attack_secondary()
 	
-	overlapping_players = %PlayerBox.get_overlapping_areas()
-	for player_area in overlapping_players:
-		if player_area != self:
-			another_player = player_area.get_parent()
+	overlapping_objects = %PlayerBox.get_overlapping_areas()
+	for throwable in overlapping_objects:
+		if throwable != self:
+			throwable_object = throwable.get_parent()
 	
 	if Input.is_action_just_pressed("grab"):
-		if overlapping_players.size() > 0 and another_player and not is_grabbed:
+		if overlapping_objects.size() > 0 and throwable_object and not is_grabbed:
 			is_grabbed = true
 	if Input.is_action_just_released("grab"):
 		if is_grabbed:
@@ -120,6 +120,6 @@ func _on_animated_sprite_2d_animation_finished():
 	rolling = false
 
 func update_grab():
-	if another_player and is_grabbed:
-		another_player.global_position = global_position
+	if throwable_object and is_grabbed:
+		throwable_object.global_position = global_position
 
