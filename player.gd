@@ -21,6 +21,12 @@ var attacking = false
 var rolling = false
 var facing = 1
 
+var thrown = false
+var throw_speed = 600
+var travelled_distance = 0
+var throw_range = 1000
+var throw_direction = 1
+
 func _ready():
 	anim.flip_h = false
 
@@ -31,6 +37,9 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 	else:
 		has_double_jumped = false
+		
+	if Input.is_action_just_pressed("get_throwable"):
+		get_throwable()
 	
 	if Input.is_action_just_pressed("jump"):
 		rolling = false
@@ -47,8 +56,11 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, speed)
 		
 	if Input.is_action_just_pressed("roll"):
-		if not rolling and is_on_floor():
+		if not rolling and is_on_floor() and not is_grabbed:
 			rolling = true
+		if is_grabbed:
+			throw_direction = facing
+			thrown = true
 	
 	if Input.is_action_just_pressed("attack"):
 		attack()
@@ -68,13 +80,27 @@ func _physics_process(delta):
 		if is_grabbed:
 			is_grabbed = false
 	
+	thrown_object(delta)
 	update_grab()
 	update_roll(delta)
 	move_and_slide()
 	update_facing_direction()
 	update_animation()
-	
-	
+
+func get_throwable():
+	const THROWABLE = preload("res://throwable.tscn")
+	var new_throwable = THROWABLE.instantiate()
+	new_throwable.global_position = position
+	self.get_parent().add_child(new_throwable)
+
+func thrown_object(delta):
+	if thrown:
+		throwable_object.global_position.x += throw_direction * throw_speed * delta
+		travelled_distance += throw_speed * delta
+		if travelled_distance > throw_range:
+			thrown = false
+			throwable_object.queue_free()
+		
 func update_facing_direction():
 	if direction.x > 0:
 		anim.flip_h = false
