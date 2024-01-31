@@ -26,6 +26,7 @@ var throw_speed = 600
 var travelled_distance = 0
 var throw_range = 1000
 var throw_direction = 1
+var flying = false
 
 func _ready():
 	anim.flip_h = false
@@ -58,9 +59,6 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("roll"):
 		if not rolling and is_on_floor() and not is_grabbed:
 			rolling = true
-		if is_grabbed:
-			throw_direction = facing
-			thrown = true
 	
 	if Input.is_action_just_pressed("attack"):
 		attack()
@@ -78,7 +76,10 @@ func _physics_process(delta):
 			is_grabbed = true
 	if Input.is_action_just_released("grab"):
 		if is_grabbed:
+			throw_direction = facing
+			thrown = false
 			is_grabbed = false
+			flying = true
 	
 	thrown_object(delta)
 	update_grab()
@@ -94,11 +95,11 @@ func get_throwable():
 	self.get_parent().add_child(new_throwable)
 
 func thrown_object(delta):
-	if thrown:
+	if flying and throwable_object:
 		throwable_object.global_position.x += throw_direction * throw_speed * delta
 		travelled_distance += throw_speed * delta
 		if travelled_distance > throw_range:
-			thrown = false
+			flying = false
 			throwable_object.queue_free()
 		
 func update_facing_direction():
@@ -146,6 +147,6 @@ func _on_animated_sprite_2d_animation_finished():
 	rolling = false
 
 func update_grab():
-	if throwable_object and is_grabbed:
+	if throwable_object and is_grabbed and not flying and not thrown:
 		throwable_object.global_position = global_position
 

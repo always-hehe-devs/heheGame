@@ -1,13 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://cpyhrrbx7w35r"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8cha0"]
+radius = 5.0
+height = 12.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_k7p22"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_lcnum"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1cr0"]
-size = Vector2(50, 30)
+size = Vector2(25, 6)
 
 [node name="testp" type="CharacterBody2D"]
 collision_layer = 0
@@ -17,7 +19,8 @@ collision_mask = 0
 shape = SubResource("CapsuleShape2D_8cha0")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-scale = Vector2(19.625, 14.6)
+position = Vector2(0, 9.53674e-07)
+scale = Vector2(19.625, 3)
 mesh = SubResource("CapsuleMesh_k7p22")
 texture = SubResource("CanvasTexture_lcnum")
 
@@ -29,5 +32,5 @@ collision_layer = 8
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1, 0)
+position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_h1cr0")
