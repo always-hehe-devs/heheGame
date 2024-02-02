@@ -15,7 +15,6 @@ var ground_point = 0
 
 var is_grabbed = false
 var throwable_object = null
-var overlapping_objects = []
 
 var attacking = false
 var rolling = false
@@ -66,23 +65,15 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("attack_second"):
 		attack_secondary()
 	
-	overlapping_objects = %PlayerBox.get_overlapping_areas()
-	for throwable in overlapping_objects:
-		if throwable != self:
-			throwable_object = throwable.get_parent()
-	
 	if Input.is_action_just_pressed("grab"):
-		if overlapping_objects.size() > 0 and throwable_object and not is_grabbed:
-			is_grabbed = true
+		is_grabbed = true
 	if Input.is_action_just_released("grab"):
 		if is_grabbed:
 			throw_direction = facing
-			thrown = false
 			is_grabbed = false
 			flying = true
 	
 	thrown_object(delta)
-	update_grab()
 	update_roll(delta)
 	move_and_slide()
 	update_facing_direction()
@@ -101,6 +92,7 @@ func thrown_object(delta):
 		if travelled_distance > throw_range:
 			flying = false
 			throwable_object.queue_free()
+			throwable_object = null
 		
 func update_facing_direction():
 	if direction.x > 0:
@@ -145,8 +137,4 @@ func _on_animated_sprite_2d_animation_finished():
 	animation_locked = false
 	attacking = false
 	rolling = false
-
-func update_grab():
-	if throwable_object and is_grabbed and not flying and not thrown:
-		throwable_object.global_position = global_position
 
